@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seebury Tribal Data Center & Energy Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --void:       #060a10;
+    --slate:      #0d1520;
+    --slate-mid:  #121e2e;
+    --slate-lite: #1a2a40;
+    --electric:   #1a8fff;
+    --electric-pale: #4aaeff;
+    --cyan:       #00d4ff;
+    --gold:       #e8b820;
+    --gold-dim:   #8a6a10;
+    --cream:      #e8e4d8;
+    --off-white:  #c8c4b8;
+    --green:      #28a86a;
+    --red-warn:   #e84040;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Barlow', sans-serif; background: var(--void); color: var(--cream); overflow-x: hidden; }
+
+  /* GRID TEXTURE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background-image:
+      linear-gradient(rgba(26,143,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26,143,255,0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 4rem;
+    background: rgba(6,10,16,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(26,143,255,0.15);
+  }
+  .nav-brand { display: flex; align-items: center; gap: 1rem; text-decoration: none; }
+  .nav-logo-box {
+    width: 40px; height: 40px; border: 1px solid rgba(26,143,255,0.3);
+    border-radius: 4px; display: flex; align-items: center; justify-content: center;
+    background: rgba(26,143,255,0.08);
+    font-size: 1.2rem;
+  }
+  .nav-brand-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--cream); letter-spacing: 1px; text-transform: uppercase; display: block; }
+  .nav-brand-sub { font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(26,143,255,0.55); font-weight: 400; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: rgba(232,228,216,0.5); font-size: 0.82rem; font-weight: 500; letter-spacing: 0.5px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--electric); }
+  .nav-cta {
+    background: transparent; border: 1px solid var(--electric);
+    color: var(--electric); padding: 0.55rem 1.4rem; border-radius: 2px;
+    text-decoration: none; font-size: 0.78rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+    transition: background 0.2s, color 0.2s;
+  }
+  .nav-cta:hover { background: var(--electric); color: var(--void); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; position: relative; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 10rem 4rem 6rem;
+  }
+  /* Animated circuit-like gradient */
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 80% 50%, rgba(26,143,255,0.12) 0%, transparent 65%),
+      radial-gradient(ellipse 40% 40% at 15% 80%, rgba(0,212,255,0.06) 0%, transparent 60%),
+      linear-gradient(180deg, rgba(13,21,32,0) 0%, rgba(6,10,16,1) 100%);
+  }
+  /* Glowing data orb */
+  .hero-orb {
+    position: absolute; right: 8%; top: 50%; transform: translateY(-50%);
+    width: 420px; height: 420px;
+    background: radial-gradient(circle, rgba(26,143,255,0.18) 0%, rgba(0,212,255,0.08) 40%, transparent 70%);
+    border-radius: 50%;
+    border: 1px solid rgba(26,143,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    animation: orbPulse 4s ease-in-out infinite;
+  }
+  .hero-orb::before {
+    content: '';
+    position: absolute; inset: 20px;
+    border: 1px solid rgba(0,212,255,0.1);
+    border-radius: 50%;
+    animation: orbPulse 4s 0.5s ease-in-out infinite;
+  }
+  .hero-orb::after {
+    content: '';
+    position: absolute; inset: 50px;
+    border: 1px solid rgba(26,143,255,0.08);
+    border-radius: 50%;
+    animation: orbPulse 4s 1s ease-in-out infinite;
+  }
+  @keyframes orbPulse { 0%,100%{ opacity:0.7; transform:translateY(-50%) scale(1); } 50%{ opacity:1; transform:translateY(-50%) scale(1.03); } }
+  .orb-inner { position: relative; z-index: 1; text-align: center; }
+  .orb-icon { font-size: 4rem; display: block; margin-bottom: 0.5rem; }
+  .orb-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase; color: rgba(26,143,255,0.7); }
+
+  .hero-content { position: relative; z-index: 2; max-width: 680px; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    border: 1px solid rgba(26,143,255,0.3);
+    background: rgba(26,143,255,0.06);
+    color: var(--electric-pale); border-radius: 2px;
+    font-size: 0.68rem; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 600;
+    padding: 0.4rem 1rem; margin-bottom: 1.75rem;
+    animation: fadeUp 0.7s ease forwards;
+  }
+  .hero-tag::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--electric); box-shadow: 0 0 8px var(--electric); animation: blink 2s ease-in-out infinite; }
+  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 6vw, 6rem); font-weight: 700;
+    line-height: 1.0; letter-spacing: -1px;
+    color: var(--cream); margin-bottom: 1.5rem;
+    animation: fadeUp 0.7s 0.1s ease forwards; opacity: 0;
+  }
+  .hero h1 span { color: var(--electric); font-style: italic; }
+  .hero-sub {
+    font-size: 1.05rem; line-height: 1.85; color: rgba(232,228,216,0.6);
+    margin-bottom: 2.5rem; font-weight: 300;
+    animation: fadeUp 0.7s 0.22s ease forwards; opacity: 0;
+  }
+  .hero-actions {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.7s 0.34s ease forwards; opacity: 0;
+  }
+  .btn-electric {
+    background: var(--electric); color: var(--void);
+    padding: 0.9rem 2.2rem; font-weight: 700; font-size: 0.82rem;
+    letter-spacing: 1px; text-decoration: none; border-radius: 2px;
+    text-transform: uppercase; transition: background 0.2s, box-shadow 0.2s;
+    display: inline-block;
+  }
+  .btn-electric:hover { background: var(--cyan); box-shadow: 0 4px 24px rgba(26,143,255,0.4); }
+  .btn-outline {
+    border: 1px solid rgba(232,228,216,0.2); color: rgba(232,228,216,0.7);
+    padding: 0.9rem 2rem; font-size: 0.82rem; text-decoration: none;
+    border-radius: 2px; letter-spacing: 0.5px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--electric); color: var(--electric); }
+
+  /* ALERT BAND */
+  .alert-band {
+    background: rgba(26,143,255,0.08);
+    border-top: 1px solid rgba(26,143,255,0.2);
+    border-bottom: 1px solid rgba(26,143,255,0.2);
+    padding: 1.25rem 4rem;
+    display: flex; align-items: center; justify-content: center; gap: 3rem; flex-wrap: wrap;
+  }
+  .alert-item {
+    display: flex; align-items: center; gap: 0.75rem;
+    font-size: 0.8rem; color: rgba(232,228,216,0.55); letter-spacing: 0.5px;
+  }
+  .alert-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); flex-shrink: 0; }
+  .alert-dot.warn { background: var(--gold); box-shadow: 0 0 8px var(--gold); }
+  .alert-val { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; color: var(--electric); letter-spacing: 1px; }
+
+  /* SHARED */
+  .sec-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.68rem; letter-spacing: 3.5px; text-transform: uppercase;
+    color: var(--electric); font-weight: 600; margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  .sec-eyebrow::before { content:''; width:20px; height:1px; background:var(--electric); }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* OPPORTUNITY */
+  .opportunity {
+    padding: 8rem 4rem; position: relative; z-index: 1;
+  }
+  .opp-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+  .opp-text h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3.5rem); font-weight: 700; line-height: 1.1;
+    color: var(--cream); margin-bottom: 1.25rem;
+  }
+  .opp-text h2 em { color: var(--electric); font-style: italic; }
+  .opp-text p { font-size: 1rem; line-height: 1.9; color: rgba(232,228,216,0.6); margin-bottom: 1rem; font-weight: 300; }
+  .opp-text p:last-of-type { margin: 0; }
+  .opp-stats { display: flex; flex-direction: column; gap: 1.25rem; }
+  .opp-stat-card {
+    background: var(--slate-mid);
+    border: 1px solid rgba(26,143,255,0.12);
+    border-left: 3px solid var(--electric);
+    border-radius: 2px; padding: 1.75rem 2rem;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .opp-stat-card:nth-child(2) { border-left-color: var(--cyan); }
+  .opp-stat-card:nth-child(3) { border-left-color: var(--gold); }
+  .opp-stat-card:nth-child(4) { border-left-color: var(--green); }
+  .opp-stat-card:hover { background: var(--slate-lite); }
+  .osc-n {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem; font-weight: 700; color: var(--electric);
+    line-height: 1; margin-bottom: 0.25rem;
+  }
+  .opp-stat-card:nth-child(2) .osc-n { color: var(--cyan); }
+  .opp-stat-card:nth-child(3) .osc-n { color: var(--gold); }
+  .opp-stat-card:nth-child(4) .osc-n { color: var(--green); }
+  .osc-l { font-size: 0.82rem; color: rgba(232,228,216,0.45); letter-spacing: 1px; font-weight: 400; }
+
+  /* PROBLEM */
+  .problem {
+    background: var(--slate);
+    border-top: 1px solid rgba(26,143,255,0.08);
+    border-bottom: 1px solid rgba(26,143,255,0.08);
+    padding: 7rem 4rem; position: relative; z-index: 1;
+  }
+  .prob-inner { max-width: 1100px; margin: 0 auto; }
+  .prob-header { margin-bottom: 3.5rem; }
+  .prob-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3vw, 3rem); font-weight: 700; color: var(--cream);
+  }
+  .prob-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .prob-card {
+    background: rgba(6,10,16,0.6); border: 1px solid rgba(26,143,255,0.1);
+    border-top: 2px solid var(--red-warn); border-radius: 2px; padding: 2rem;
+    transition: border-color 0.2s;
+  }
+  .prob-card:hover { border-color: rgba(26,143,255,0.25); border-top-color: var(--electric); }
+  .prob-icon { font-size: 1.8rem; margin-bottom: 0.75rem; display: block; }
+  .prob-card h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--cream); letter-spacing: 0.5px; margin-bottom: 0.6rem; text-transform: uppercase; }
+  .prob-card p { font-size: 0.9rem; line-height: 1.75; color: rgba(232,228,216,0.5); font-weight: 300; }
+
+  /* SOLUTION */
+  .solution {
+    padding: 8rem 4rem; position: relative; z-index: 1;
+  }
+  .sol-inner { max-width: 1100px; margin: 0 auto; }
+  .sol-header { text-align: center; margin-bottom: 4.5rem; }
+  .sol-header h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3vw, 3rem); font-weight: 700; color: var(--cream); }
+  .sol-header p { font-size: 1rem; line-height: 1.85; color: rgba(232,228,216,0.55); max-width: 620px; margin: 1rem auto 0; font-weight: 300; }
+  .sol-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .sol-card {
+    background: var(--slate-mid); border: 1px solid rgba(26,143,255,0.1);
+    border-radius: 2px; padding: 2.25rem 2rem;
+    position: relative; overflow: hidden;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+  .sol-card::before {
+    content: attr(data-num);
+    position: absolute; top: -0.5rem; right: 1.5rem;
+    font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 700;
+    color: rgba(26,143,255,0.05); line-height: 1;
+    pointer-events: none;
+  }
+  .sol-card:hover { border-color: rgba(26,143,255,0.3); transform: translateY(-4px); }
+  .sol-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+  .sol-card h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.15rem; font-weight: 700; color: var(--electric-pale); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 0.6rem; }
+  .sol-card p { font-size: 0.9rem; line-height: 1.75; color: rgba(232,228,216,0.5); font-weight: 300; }
+
+  /* POWER MOSAIC */
+  .power {
+    background: var(--slate);
+    border-top: 1px solid rgba(26,143,255,0.08);
+    padding: 8rem 4rem; position: relative; z-index: 1; overflow: hidden;
+  }
+  .power::before {
+    content: '';
+    position: absolute; top: -80px; right: -80px;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .power-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.2fr; gap: 6rem; align-items: center; }
+  .power-text h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3vw, 3rem); font-weight: 700; line-height: 1.1; color: var(--cream); margin-bottom: 1.25rem; }
+  .power-text h2 em { color: var(--cyan); font-style: italic; }
+  .power-text p { font-size: 1rem; line-height: 1.9; color: rgba(232,228,216,0.55); margin-bottom: 1rem; font-weight: 300; }
+  .power-sources { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .ps-card {
+    background: rgba(6,10,16,0.5); border: 1px solid rgba(26,143,255,0.12);
+    border-radius: 2px; padding: 1.5rem;
+    display: flex; align-items: flex-start; gap: 1rem;
+    transition: background 0.2s;
+  }
+  .ps-card:hover { background: var(--slate-lite); }
+  .ps-icon { font-size: 1.6rem; flex-shrink: 0; }
+  .ps-card h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--cream); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 0.25rem; }
+  .ps-card p { font-size: 0.82rem; line-height: 1.6; color: rgba(232,228,216,0.45); font-weight: 300; }
+  .power-uptime {
+    grid-column: 1/-1;
+    background: linear-gradient(135deg, rgba(26,143,255,0.1), rgba(0,212,255,0.05));
+    border: 1px solid rgba(26,143,255,0.2); border-radius: 2px; padding: 1.5rem;
+    display: flex; align-items: center; gap: 1.5rem;
+  }
+  .put-n { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 700; color: var(--cyan); line-height: 1; flex-shrink: 0; }
+  .put-text h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 700; color: var(--cream); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 0.2rem; }
+  .put-text p { font-size: 0.82rem; color: rgba(232,228,216,0.45); font-weight: 300; }
+
+  /* PROCESS */
+  .process {
+    padding: 8rem 4rem; position: relative; z-index: 1;
+  }
+  .proc-inner { max-width: 1100px; margin: 0 auto; }
+  .proc-header { margin-bottom: 4rem; text-align: center; }
+  .proc-header h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3vw, 3rem); font-weight: 700; color: var(--cream); }
+  .proc-header p { font-size: 1rem; color: rgba(232,228,216,0.5); max-width: 560px; margin: 1rem auto 0; font-weight: 300; line-height: 1.8; }
+  .proc-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+  .proc-steps::before {
+    content: '';
+    position: absolute; top: 28px; left: calc(12.5% + 1rem); right: calc(12.5% + 1rem); height: 1px;
+    background: linear-gradient(to right, var(--electric), var(--cyan), var(--electric));
+    z-index: 0;
+  }
+  .proc-step { text-align: center; padding: 0 1.5rem; position: relative; }
+  .proc-num {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--slate-mid); border: 2px solid var(--electric);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 700;
+    color: var(--electric); margin: 0 auto 1.25rem;
+    position: relative; z-index: 1;
+    box-shadow: 0 0 16px rgba(26,143,255,0.2);
+  }
+  .proc-step h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--cream); margin-bottom: 0.6rem; }
+  .proc-step p { font-size: 0.85rem; line-height: 1.7; color: rgba(232,228,216,0.5); font-weight: 300; }
+
+  /* TRIBAL ADVANTAGES */
+  .tribal {
+    background: var(--slate);
+    border-top: 1px solid rgba(26,143,255,0.08);
+    padding: 8rem 4rem; position: relative; z-index: 1;
+  }
+  .tribal-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 6rem; align-items: start; }
+  .tribal-text h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3vw, 3rem); font-weight: 700; line-height: 1.1; color: var(--cream); margin-bottom: 1.25rem; }
+  .tribal-text h2 em { color: var(--gold); font-style: italic; }
+  .tribal-text p { font-size: 1rem; line-height: 1.9; color: rgba(232,228,216,0.55); margin-bottom: 1rem; font-weight: 300; }
+  .tribal-advantages { display: flex; flex-direction: column; gap: 0.9rem; }
+  .ta-item {
+    display: flex; align-items: flex-start; gap: 1rem;
+    background: rgba(6,10,16,0.4); border: 1px solid rgba(232,184,32,0.1);
+    border-radius: 2px; padding: 1.25rem 1.5rem;
+    border-left: 3px solid var(--gold);
+    transition: background 0.2s;
+  }
+  .ta-item:hover { background: rgba(232,184,32,0.05); }
+  .ta-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 0.1rem; }
+  .ta-item h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--gold); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 0.2rem; }
+  .ta-item p { font-size: 0.85rem; line-height: 1.65; color: rgba(232,228,216,0.5); font-weight: 300; margin: 0; }
+
+  /* SOLAR SECTION */
+  .solar {
+    padding: 8rem 4rem; position: relative; z-index: 1;
+  }
+  .solar-inner { max-width: 1100px; margin: 0 auto; }
+  .solar-header { text-align: center; margin-bottom: 4rem; }
+  .solar-header h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3vw, 3rem); font-weight: 700; color: var(--cream); }
+  .solar-header p { font-size: 1rem; color: rgba(232,228,216,0.5); max-width: 600px; margin: 1rem auto 0; font-weight: 300; line-height: 1.8; }
+  .solar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-bottom: 2.5rem; }
+  .solar-card {
+    background: var(--slate-mid); border: 1px solid rgba(232,184,32,0.12);
+    border-radius: 2px; padding: 2rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .solar-card:hover { border-color: rgba(232,184,32,0.3); transform: translateY(-3px); }
+  .sc-icon { font-size: 2rem; margin-bottom: 0.85rem; display: block; }
+  .solar-card h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; color: var(--gold); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .solar-card p { font-size: 0.88rem; line-height: 1.75; color: rgba(232,228,216,0.5); font-weight: 300; }
+  .solar-financing {
+    background: linear-gradient(135deg, rgba(232,184,32,0.08), rgba(232,184,32,0.03));
+    border: 1px solid rgba(232,184,32,0.2); border-radius: 2px; padding: 2.5rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; align-items: center;
+  }
+  .sf-stat { text-align: center; }
+  .sf-n { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 700; color: var(--gold); line-height: 1; margin-bottom: 0.25rem; }
+  .sf-l { font-size: 0.75rem; color: rgba(232,228,216,0.4); letter-spacing: 1.5px; text-transform: uppercase; }
+  .sf-text { grid-column: span 1; }
+  .sf-text h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 700; color: var(--cream); margin-bottom: 0.5rem; }
+  .sf-text p { font-size: 0.9rem; line-height: 1.75; color: rgba(232,228,216,0.5); font-weight: 300; margin: 0; }
+
+  /* CONTACT */
+  .contact {
+    background: var(--slate);
+    border-top: 1px solid rgba(26,143,255,0.12);
+    padding: 8rem 4rem; position: relative; z-index: 1;
+  }
+  .contact::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(26,143,255,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .contact-inner { max-width: 900px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
+  .contact-inner h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3.5vw, 3.5rem); font-weight: 700; font-style: italic; color: var(--cream); margin-bottom: 1rem; }
+  .contact-inner > p { font-size: 1rem; line-height: 1.85; color: rgba(232,228,216,0.5); margin-bottom: 3.5rem; max-width: 560px; margin-left: auto; margin-right: auto; font-weight: 300; }
+  .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-bottom: 3rem; }
+  .cg-card {
+    background: rgba(6,10,16,0.5); border: 1px solid rgba(26,143,255,0.12);
+    border-radius: 2px; padding: 2rem; text-align: left;
+    transition: border-color 0.2s;
+  }
+  .cg-card:hover { border-color: rgba(26,143,255,0.3); }
+  .cg-icon { font-size: 1.4rem; margin-bottom: 0.7rem; display: block; }
+  .cg-label { font-size: 0.62rem; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(26,143,255,0.5); font-weight: 600; margin-bottom: 0.35rem; font-family: 'Barlow Condensed', sans-serif; }
+  .cg-val { font-size: 0.95rem; }
+  .cg-val a { color: var(--electric-pale); text-decoration: none; transition: color 0.2s; }
+  .cg-val a:hover { color: var(--cyan); }
+  .cg-val span { color: rgba(232,228,216,0.7); }
+
+  /* FOOTER */
+  footer {
+    background: var(--void); border-top: 1px solid rgba(26,143,255,0.1);
+    padding: 2rem 4rem;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+  }
+  .foot-brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+  .foot-logo { width: 28px; height: 28px; border: 1px solid rgba(26,143,255,0.3); border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; background: rgba(26,143,255,0.06); }
+  .foot-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; color: rgba(232,228,216,0.5); letter-spacing: 1px; text-transform: uppercase; }
+  .foot-links { display: flex; gap: 1.75rem; list-style: none; }
+  .foot-links a { color: rgba(232,228,216,0.25); font-size: 0.78rem; text-decoration: none; transition: color 0.2s; letter-spacing: 0.5px; }
+  .foot-links a:hover { color: var(--electric); }
+  footer p { color: rgba(232,228,216,0.2); font-size: 0.72rem; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:none; } }
+
+  /* RESPONSIVE */
+  @media (max-width: 960px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { padding: 8rem 1.5rem 4rem; }
+    .hero-orb { display: none; }
+    .alert-band { padding: 1.25rem 1.5rem; gap: 1.5rem; }
+    .opportunity { padding: 5rem 1.5rem; }
+    .opp-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .problem { padding: 5rem 1.5rem; }
+    .prob-grid { grid-template-columns: 1fr; }
+    .solution { padding: 5rem 1.5rem; }
+    .sol-grid { grid-template-columns: 1fr; }
+    .power { padding: 5rem 1.5rem; }
+    .power-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .power-sources { grid-template-columns: 1fr; }
+    .process { padding: 5rem 1.5rem; }
+    .proc-steps { grid-template-columns: 1fr 1fr; }
+    .proc-steps::before { display: none; }
+    .tribal { padding: 5rem 1.5rem; }
+    .tribal-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .solar { padding: 5rem 1.5rem; }
+    .solar-grid { grid-template-columns: 1fr; }
+    .solar-financing { grid-template-columns: 1fr; text-align: center; }
+    .contact { padding: 5rem 1.5rem; }
+    .contact-grid { grid-template-columns: 1fr; }
+    footer { padding: 1.5rem; flex-direction: column; align-items: flex-start; }
+    .foot-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#">
+    <div class="nav-logo-box">⚡</div>
+    <div>
+      <span class="nav-brand-name">Seebury</span>
+      <span class="nav-brand-sub">Tribal Data Center & Energy</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#opportunity">The Opportunity</a></li>
+    <li><a href="#solution">Our Solution</a></li>
+    <li><a href="#power">Power Strategy</a></li>
+    <li><a href="#tribal">Tribal Advantages</a></li>
+    <li><a href="#solar">Solar</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Start a Conversation</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-orb">
+    <div class="orb-inner">
+      <span class="orb-icon">🏛️</span>
+      <span class="orb-label">Sovereign Infrastructure</span>
+    </div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-tag">Tribal Technology & Energy Solutions</div>
+    <h1>Data Security.<br>Energy Independence.<br><span>Sovereign by Design.</span></h1>
+    <p class="hero-sub">Tribal nations hold a unique and powerful position in the American energy and technology landscape. Seebury partners with tribes to build tribally-owned data centers powered by tribally-controlled energy — creating data sovereignty, economic opportunity, and high-tech careers for tribal members.</p>
+    <div class="hero-actions">
+      <a href="#solution" class="btn-electric">Our Solution</a>
+      <a href="#contact" class="btn-outline">Start the Conversation</a>
+    </div>
+  </div>
+</section>
+
+<!-- ALERT BAND -->
+<div class="alert-band">
+  <div class="alert-item">
+    <div class="alert-dot"></div>
+    <span>Tribal data currently held by <strong>outside vendors</strong> — no sovereign control</span>
+  </div>
+  <div class="alert-item">
+    <div class="alert-dot warn"></div>
+    <span><span class="alert-val">$2B+</span> in renewable energy financing arranged by Seebury partners</span>
+  </div>
+  <div class="alert-item">
+    <div class="alert-dot"></div>
+    <span><span class="alert-val">500MW</span> of successful tribal and commercial solar projects delivered</span>
+  </div>
+  <div class="alert-item">
+    <div class="alert-dot"></div>
+    <span><span class="alert-val">100%</span> uptime target through multiservice power mosaic</span>
+  </div>
+</div>
+
+<!-- THE OPPORTUNITY -->
+<section class="opportunity" id="opportunity">
+  <div class="opp-inner">
+    <div class="opp-text reveal">
+      <div class="sec-eyebrow">The Opportunity</div>
+      <h2>Your tribal data belongs on <em>tribal land.</em></h2>
+      <p>Every month, tribal nations pay external data center providers to store, backup, and manage tribal information — casino operations, government records, member data. That data lives on someone else's servers, in someone else's building, under someone else's rules.</p>
+      <p>Seebury works with tribal nations to change that equation. We design, build, and operate tribally-owned data centers on tribal land — moving existing co-location and disaster recovery contracts from external providers to facilities the tribe owns outright. The transition pays for itself: the monthly fees the tribe was paying go toward building an asset the tribe controls forever.</p>
+      <p>The data center becomes the anchor. From there, tribally-controlled energy infrastructure powers the facility and expands to serve surrounding tribal buildings, businesses, and members — creating a true tribal energy economy.</p>
+    </div>
+    <div class="opp-stats reveal">
+      <div class="opp-stat-card">
+        <div class="osc-n">$0</div>
+        <div class="osc-l">Typical upfront cost — existing contracts fund the build</div>
+      </div>
+      <div class="opp-stat-card">
+        <div class="osc-n">100%</div>
+        <div class="osc-l">Tribal ownership of data center facility and infrastructure</div>
+      </div>
+      <div class="opp-stat-card">
+        <div class="osc-n">30yr</div>
+        <div class="osc-l">Fixed solar energy cost — immune to utility rate increases</div>
+      </div>
+      <div class="opp-stat-card">
+        <div class="osc-n">High-tech</div>
+        <div class="osc-l">Career pathways created for tribal members through training & mentorship</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE PROBLEM -->
+<section class="problem">
+  <div class="prob-inner">
+    <div class="prob-header reveal">
+      <div class="sec-eyebrow">Why This Matters</div>
+      <h2>The risks of data dependency</h2>
+    </div>
+    <div class="prob-grid">
+      <div class="prob-card reveal">
+        <span class="prob-icon">🔓</span>
+        <h3>No Sovereign Control</h3>
+        <p>Tribal data stored with outside vendors is subject to the vendor's terms, policies, and jurisdiction — not tribal sovereignty. In the event of a legal dispute, the tribe may not control access to its own records.</p>
+      </div>
+      <div class="prob-card reveal">
+        <span class="prob-icon">💸</span>
+        <h3>Monthly Fees, No Asset</h3>
+        <p>Co-location and cloud backup contracts generate zero equity for the tribe. Every payment builds someone else's infrastructure while tribal capital leaves the reservation permanently.</p>
+      </div>
+      <div class="prob-card reveal">
+        <span class="prob-icon">⚡</span>
+        <h3>Grid Dependency</h3>
+        <p>External data centers draw from regional power grids — subject to outages, rate increases, and carbon costs the tribe has no control over. A tribal facility powered by tribal energy eliminates this exposure entirely.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE SOLUTION -->
+<section class="solution" id="solution">
+  <div class="sol-inner">
+    <div class="sol-header reveal">
+      <div class="sec-eyebrow" style="justify-content:center;">The Seebury Solution</div>
+      <h2>Discover. Design. Defend. Deliver.</h2>
+      <p>Seebury's engagement begins with a deep discovery process and never ends — we stay engaged through operations, training, and long-term technical support to ensure the tribe's permanent capability.</p>
+    </div>
+    <div class="sol-grid">
+      <div class="sol-card reveal" data-num="01">
+        <span class="sol-icon">🔍</span>
+        <h3>Discovery Workshop</h3>
+        <p>We analyze current co-location and disaster recovery contracts, network connectivity requirements, power load profiles, and environmental conditions to identify the optimal data center configuration for the tribe's existing needs.</p>
+      </div>
+      <div class="sol-card reveal" data-num="02">
+        <span class="sol-icon">📐</span>
+        <h3>Design & Engineering</h3>
+        <p>Seebury's team designs the full facility — data center infrastructure, power systems (natural gas base load, solar, wind), cooling, redundancy, and security — built to tribal specifications on tribal land.</p>
+      </div>
+      <div class="sol-card reveal" data-num="03">
+        <span class="sol-icon">🏗️</span>
+        <h3>Build & Commission</h3>
+        <p>We coordinate construction, equipment procurement, and commissioning through a single point of program management — with subject matter experts across data center technology, energy systems, and telecommunications.</p>
+      </div>
+      <div class="sol-card reveal" data-num="04">
+        <span class="sol-icon">🔄</span>
+        <h3>Data Migration</h3>
+        <p>Existing tribal contracts — casino backups, government records, member databases — transition from external data centers to the new tribally-owned facility, eliminating the monthly outflow and replacing it with tribal equity.</p>
+      </div>
+      <div class="sol-card reveal" data-num="05">
+        <span class="sol-icon">🎓</span>
+        <h3>Training & Mentorship</h3>
+        <p>Seebury's Dell Computing and Operations partners provide structured training and mentorship programs that transition tribal members into high-tech data center and energy operations roles over time.</p>
+      </div>
+      <div class="sol-card reveal" data-num="06">
+        <span class="sol-icon">📡</span>
+        <h3>Long-Term Operations</h3>
+        <p>We provide ongoing technical support, system monitoring, and operational management — with a deliberate transition strategy that builds permanent tribal competency in running the facility independently.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POWER MOSAIC -->
+<section class="power" id="power">
+  <div class="power-inner">
+    <div class="power-text reveal">
+      <div class="sec-eyebrow">Power Strategy</div>
+      <h2>100% uptime through a <em>multiservice mosaic.</em></h2>
+      <p>Data centers require power that never fails. The conventional approach — draw from the grid, back up with diesel — creates dependency, cost exposure, and environmental burden. Seebury designs a smarter solution: a "mosaic" of non-periodic energy sources that together deliver continuous, cost-competitive power at a fraction of the long-term grid cost.</p>
+      <p>Natural gas provides baseload reliability. Solar and wind reduce operating costs and earn green energy credits. Together they achieve near-continuous availability — while the tribe earns premium rates selling excess power back to the grid at peak demand times.</p>
+    </div>
+    <div class="power-sources reveal">
+      <div class="ps-card">
+        <span class="ps-icon">🔥</span>
+        <div>
+          <h4>Natural Gas Baseload</h4>
+          <p>On-site gas generation provides 24/7 reliable baseload power — mission-assured, independent of the regional grid, and capable of powering the full facility through any external disruption.</p>
+        </div>
+      </div>
+      <div class="ps-card">
+        <span class="ps-icon">☀️</span>
+        <div>
+          <h4>Solar Generation</h4>
+          <p>Rooftop and ground-mount solar arrays reduce daytime gas consumption and operating costs. Tribal land tax advantages and federal incentives make solar economics especially favorable for tribal projects.</p>
+        </div>
+      </div>
+      <div class="ps-card">
+        <span class="ps-icon">💨</span>
+        <div>
+          <h4>Wind Integration</h4>
+          <p>Where site conditions allow, wind generation provides renewable power when solar output is reduced — evening, cloudy periods, and seasonal variations — extending the coverage of renewable sources.</p>
+        </div>
+      </div>
+      <div class="ps-card">
+        <span class="ps-icon">🔋</span>
+        <div>
+          <h4>Battery Storage</h4>
+          <p>A state-of-the-art battery storage system bridges the gaps between intermittent renewable sources and ensures a smooth, continuous flow of power regardless of generation variability.</p>
+        </div>
+      </div>
+      <div class="power-uptime">
+        <div class="put-n">3%</div>
+        <div class="put-text">
+          <h4>Annual Energy Cost Escalator Eliminated</h4>
+          <p>Seebury uses a 3% per year estimated grid rate increase in financial modeling — tribal-owned generation eliminates this exposure entirely for the life of the facility.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="process">
+  <div class="proc-inner">
+    <div class="proc-header reveal">
+      <div class="sec-eyebrow" style="justify-content:center;">The Engagement Model</div>
+      <h2>From Discovery to Tribal Ownership</h2>
+      <p>Seebury's proven four-phase engagement takes a tribal data center from concept to permanent tribally-operated infrastructure.</p>
+    </div>
+    <div class="proc-steps">
+      <div class="proc-step reveal">
+        <div class="proc-num">1</div>
+        <h3>Discover</h3>
+        <p>Analyze existing contracts, power needs, network requirements, and site conditions. Identify any fatal flaws or go/no-go factors before committing.</p>
+      </div>
+      <div class="proc-step reveal">
+        <div class="proc-num">2</div>
+        <h3>Design</h3>
+        <p>Engineer the data center, power systems, cooling, redundancy, and security — custom configured for the tribe's existing workloads and future growth.</p>
+      </div>
+      <div class="proc-step reveal">
+        <div class="proc-num">3</div>
+        <h3>Deliver</h3>
+        <p>Construct, commission, and migrate. Existing vendor contracts transition to the tribal facility — immediate cost savings begin on day one of operations.</p>
+      </div>
+      <div class="proc-step reveal">
+        <div class="proc-num">4</div>
+        <h3>Defend</h3>
+        <p>Ongoing operations support, training, and mentorship — building permanent tribal competency until the tribe is fully self-sufficient in managing its own digital infrastructure.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRIBAL ADVANTAGES -->
+<section class="tribal" id="tribal">
+  <div class="tribal-inner">
+    <div class="tribal-text reveal">
+      <div class="sec-eyebrow">Tribal Advantages</div>
+      <h2>Why tribal land is the <em>best location</em> for this infrastructure.</h2>
+      <p>Tribal nations are not just beneficiaries of the data center opportunity — they are structurally advantaged compared to commercial developers. Sovereign land, unique tax status, federal incentive programs, and tribal economic development tools create a financial and legal environment that no private developer can replicate.</p>
+      <p>Seebury's deep experience working with Native American tribes, First Nations, and indigenous communities means we understand how to structure projects that honor sovereignty, maximize tribal economic benefit, and meet the technical standards that major tenants and operators require.</p>
+    </div>
+    <div class="tribal-advantages reveal">
+      <div class="ta-item">
+        <span class="ta-icon">🏛️</span>
+        <div>
+          <h4>Sovereign Land Control</h4>
+          <p>Tribal trust land is not subject to state or local tax. Data center infrastructure built on tribal land creates a unique cost advantage and jurisdictional protection that commercial sites cannot match.</p>
+        </div>
+      </div>
+      <div class="ta-item">
+        <span class="ta-icon">💰</span>
+        <div>
+          <h4>Tribal New Market Tax Credits</h4>
+          <p>Tribes can leverage unique Tribal New Market Tax Credits, double depreciation rates, employment incentives, and other tribal-specific financial advantages that reduce project capital costs substantially.</p>
+        </div>
+      </div>
+      <div class="ta-item">
+        <span class="ta-icon">⚡</span>
+        <div>
+          <h4>Renewable Energy Incentives</h4>
+          <p>Federal renewable energy tax incentives — including ITC credits applied to solar installations — offset approximately 50% of capital costs when properly structured, with unique tribal applications.</p>
+        </div>
+      </div>
+      <div class="ta-item">
+        <span class="ta-icon">🌱</span>
+        <div>
+          <h4>Green Energy Credits</h4>
+          <p>Tribally-operated renewable energy generation qualifies for carbon credit programs and green energy premium rates — creating revenue streams above and beyond direct energy cost savings.</p>
+        </div>
+      </div>
+      <div class="ta-item">
+        <span class="ta-icon">👥</span>
+        <div>
+          <h4>Tribal Employment Priority</h4>
+          <p>Data center and energy operations create high-tech, well-compensated career pathways — IT infrastructure, cybersecurity, energy management — that Seebury's training programs place tribal members into first.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRIBAL SOLAR -->
+<section class="solar" id="solar">
+  <div class="solar-inner">
+    <div class="solar-header reveal">
+      <div class="sec-eyebrow" style="justify-content:center;">Tribal Solar Solutions</div>
+      <h2>Tribal Nations as Their Own Power Companies</h2>
+      <p>Tribes have a unique opportunity to become energy producers — generating power for tribal buildings, businesses, casinos, and members, or selling to the regional grid. Seebury's solar program delivers the full turnkey project from engineering through financing, installation, and long-term operations.</p>
+    </div>
+    <div class="solar-grid">
+      <div class="solar-card reveal">
+        <span class="sc-icon">🏠</span>
+        <h3>Onsite Solar</h3>
+        <p>Rooftop arrays, parking canopy collectors, or ground-mount systems replace 75% or more of purchased utility power — with tribal buildings and businesses as the primary beneficiaries. Your energy cost is fixed for 30 years.</p>
+      </div>
+      <div class="solar-card reveal">
+        <span class="sc-icon">🤝</span>
+        <h3>Project Partnerships</h3>
+        <p>Seebury partners with tribal nations on solar PV projects that generate long-term revenue streams — handling design, engineering, permitting, construction, interconnection, O&amp;M, and PPA management from beginning to end.</p>
+      </div>
+      <div class="solar-card reveal">
+        <span class="sc-icon">📊</span>
+        <h3>Full Financial Clarity</h3>
+        <p>Before any commitment, our team delivers a clear financial analysis: project cost before and after tax incentives, projected energy savings, financing options, investment return analysis, and ownership vs. PPA comparison.</p>
+      </div>
+    </div>
+    <div class="solar-financing reveal">
+      <div class="sf-stat">
+        <div class="sf-n">$2B+</div>
+        <div class="sf-l">Renewable energy financing arranged</div>
+      </div>
+      <div class="sf-text">
+        <h3>Full Project Financing Available</h3>
+        <p>Seebury's project finance team has arranged over $2 billion in financing for renewable energy, real estate, and community facilities — including investor lending, PACE loans, leases, shared savings, and Power Purchase Agreements designed specifically for tribal economic conditions.</p>
+      </div>
+      <div class="sf-stat">
+        <div class="sf-n">500MW</div>
+        <div class="sf-l">Of successful solar projects delivered</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="sec-eyebrow reveal" style="justify-content:center; color:rgba(26,143,255,0.6);">Start the Conversation</div>
+    <h2 class="reveal">Ready to bring your data home?</h2>
+    <p class="reveal">Every engagement begins with a no-obligation discovery conversation — understanding your tribe's current data contracts, energy situation, and economic development goals. There is no cost to that first conversation.</p>
+    <div class="contact-grid reveal">
+      <div class="cg-card">
+        <span class="cg-icon">📍</span>
+        <div class="cg-label">Headquarters</div>
+        <div class="cg-val"><span>McGregor, Texas</span></div>
+      </div>
+      <div class="cg-card">
+        <span class="cg-icon">✉️</span>
+        <div class="cg-label">Email</div>
+        <div class="cg-val"><a href="mailto:patrick@seebury.com">patrick@seebury.com</a></div>
+      </div>
+      <div class="cg-card">
+        <span class="cg-icon">🌐</span>
+        <div class="cg-label">Main Site</div>
+        <div class="cg-val"><a href="index.html">seebury.com</a></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <a href="mailto:patrick@seebury.com" class="btn-electric">Request a Discovery Session</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a class="foot-brand" href="index.html">
+    <div class="foot-logo">⚡</div>
+    <span class="foot-name">Seebury Multiservice Solutions</span>
+  </a>
+  <ul class="foot-links">
+    <li><a href="#opportunity">The Opportunity</a></li>
+    <li><a href="#solution">Solution</a></li>
+    <li><a href="#power">Power Strategy</a></li>
+    <li><a href="#tribal">Tribal Advantages</a></li>
+    <li><a href="index.html">Main Site</a></li>
+    <li><a href="longhorn-solar.html">Longhorn Solar</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <p>© 2025 Seebury Multiservice Solutions · McGregor, Texas</p>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 85);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.06 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
