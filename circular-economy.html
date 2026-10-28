@@ -167,6 +167,49 @@ h1.hero-title em{font-style:italic;color:var(--gold-lt);display:block;}
 
 footer{background:rgba(0,0,0,0.3);border-top:1px solid rgba(255,255,255,0.06);padding:2rem 5rem;display:flex;justify-content:space-between;align-items:center;}
 footer p{font-size:0.7rem;color:rgba(244,238,216,0.25);}
+
+  /* HAMBURGER MENU */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 6px;
+    background: none;
+    border: none;
+    margin-left: auto;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--gold-bright, #C8A84B);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  @media (max-width: 900px) {
+    .nav-hamburger { display: flex; }
+    .nav-links {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(6,10,15,0.97);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+      z-index: 9999;
+      list-style: none;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { font-size: 1.3rem !important; color: #C8A84B !important; }
+    .nav-cta { display: none; }
+  }
+
 </style>
 </head>
 <body>
@@ -475,5 +518,24 @@ const obs = new IntersectionObserver(entries => {
 }, {threshold:0.08});
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
+
+<script>
+(function(){
+  var btn = document.getElementById('navToggle');
+  var links = document.querySelector('.nav-links');
+  if(!btn || !links) return;
+  btn.addEventListener('click', function(){
+    btn.classList.toggle('open');
+    links.classList.toggle('open');
+  });
+  links.addEventListener('click', function(e){
+    if(e.target.tagName === 'A'){
+      btn.classList.remove('open');
+      links.classList.remove('open');
+    }
+  });
+})();
+</script>
+
 </body>
 </html>
